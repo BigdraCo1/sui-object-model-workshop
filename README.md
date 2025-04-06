@@ -19,7 +19,7 @@ Before we start, we need to set up our environment.
 Navigate to the `scripts` directory and run the following command: 
 
 ```bash
-yarn init-keypair
+yarn install && yarn init-keypair
 ```
 
 This will generate and fund a new keypair for you to use in the workshop. Make sure not to use this keypair in any production environments.
