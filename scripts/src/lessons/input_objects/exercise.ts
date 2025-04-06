@@ -41,6 +41,7 @@ const main = async () => {
    * 
    * Create a new Transaction instance from the @mysten/sui/transactions module.
    */
+  const tx = new Transaction();
   
   /**
    * Task 2:
@@ -54,6 +55,10 @@ const main = async () => {
    * Resources: 
    * - Object inputs: https://sdk.mystenlabs.com/typescript/transaction-building/basics#object-references
    */
+  tx.moveCall({
+    target: `${PACKAGE_ADDRESS}::counter::increment`,
+    arguments: [tx.object(COUNTER_ADDRESS)],
+  });
 
   /**
    * Task 3: 
@@ -62,6 +67,12 @@ const main = async () => {
    * 
    * Print the result to the console.
    */
+  const result = await suiClient.signAndExecuteTransaction({
+    transaction: tx,
+    signer: keypair,
+  });
+  console.log(result);
+
   
 }
 

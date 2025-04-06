@@ -41,6 +41,7 @@ const main = async () => {
    * 
    * Create a new Transaction instance from the @mysten/sui/transactions module.
    */
+  const tx = new Transaction();
 
 
   /**
@@ -54,7 +55,11 @@ const main = async () => {
    * HINT: The arguments and typeArguments arguments are optional since this function does not take 
    * any arguments or type arguments.
    */
-
+  const [bananaObject] = tx.moveCall({
+    target: `${PACKAGE_ADDRESS}::banana::new`,
+    arguments: [],
+    typeArguments: [],
+  });
 
   /**
    * Task 3: 
@@ -65,6 +70,7 @@ const main = async () => {
    * 
    * HINT: Use `suiAddress`` to transfer the object to your address.
    */
+  tx.transferObjects([bananaObject] ,suiAddress)
 
 
   /**
@@ -74,6 +80,11 @@ const main = async () => {
    * 
    * Print the result to the console.
    */
+  const result = await suiClient.signAndExecuteTransaction({
+    transaction: tx,
+    signer: keypair,
+  });
+  console.log(result);
   
 }
 
